@@ -7,12 +7,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<dependencies>
-		<!-- java servlet -->
+		<!-- servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version>
+			<scope>provided</scope>
 		</dependency>
+
 		<!-- html parser -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -25,6 +27,21 @@
 			<artifactId>groovy-all</artifactId>
 			<version>2.5.8</version>
 			<type>pom</type>
+		</dependency>
+
+		<!-- html sanitizer -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.8</version>
+		</dependency>
+		
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.10</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- unit test -->
@@ -50,7 +67,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.0.v20161208</version>
+				<version>9.4.20.v20190813</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 				</configuration>

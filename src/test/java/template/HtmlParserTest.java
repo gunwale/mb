@@ -1,5 +1,7 @@
 package template;
 
+import static com.daimler.utils.Environment.DEFAULT_ENVIRONMENT;
+import static org.junit.Assert.assertEquals;
 import static template.TestConst.RESOURCE_NAME;
 
 import java.io.File;
@@ -7,43 +9,20 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.DataNode;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Node;
-import org.jsoup.nodes.TextNode;
-import org.jsoup.select.NodeVisitor;
 import org.junit.Test;
+
+import com.daimler.utils.TemplateEngine;
 
 public class HtmlParserTest {
 
   @Test
   public void test() throws IOException {
-    Document document = Jsoup.parse(new File(getClass().getClassLoader().getResource(RESOURCE_NAME).getFile()),
-        StandardCharsets.UTF_8.name());
-
-    document.traverse(new NodeVisitor() {
-      @Override
-      public void head(Node node, int depth) {
-        if (node instanceof TextNode) {
-          TextNode textNode = (TextNode) node;
-          String text = textNode.getWholeText().trim();
-          if (!text.isEmpty()) {
-            System.err.println("Text : " + textNode.getWholeText());
-          }
-        } else if (node instanceof DataNode) {
-          DataNode textNode = (DataNode) node;
-          System.err.println("Data : " + textNode.getWholeData());
-        } else if (node != null && !node.nodeName().startsWith("#")) {
-          if (node.attributes() != null && node.attributes().size() > 0) {
-            System.err.println(node.nodeName() + " : " + node.attributes());
-          }
-        }
-      }
-
-      @Override
-      public void tail(Node node, int depth) {
-
-      }
-    });
+    assertEquals(
+        TemplateEngine.parse(
+            Jsoup.parse(new File(getClass().getClassLoader().getResource(RESOURCE_NAME).getFile()),
+                StandardCharsets.UTF_8.name()),
+            DEFAULT_ENVIRONMENT.getExpressions(), DEFAULT_ENVIRONMENT.getTags(), DEFAULT_ENVIRONMENT.getAttributes())
+            .toString().replaceAll("\n", "").trim(),
+        "<!doctype html><html> <head>   </head> <body>  <div>    <title>111111 Smart</title>   </div>     <h1 title=\"Smart\">Smart</h1>    <div data-loop-model=\"car.models\">   Model: model  </div>    </body></html>");
   }
 }

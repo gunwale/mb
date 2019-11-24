@@ -4,6 +4,19 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	metadata-complete="true" version="3.0">
 	<display-name>Daimler</display-name>
+
+	<servlet>
+		<servlet-name>DefaultServlet</servlet-name>
+		<servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+		<init-param>
+			<param-name>cacheControl</param-name>
+			<param-value>max-age=0,public</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DefaultServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 	<filter>
 		<filter-name>TemplateFilter</filter-name>
 		<filter-class>com.daimler.filter.TemplateFilter</filter-class>

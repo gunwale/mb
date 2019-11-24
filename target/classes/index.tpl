@@ -5,7 +5,9 @@
         car = Car.lookup("1")
     </script>
     <head>
-        <title>${car.brand}</title>
+    	<div>
+        <title>111111 ${car.brand}</title>
+        </div>
     </head>
     <body>
         <h1 title="${car.brand}">${car.brand}</h1>
